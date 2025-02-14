@@ -1,5 +1,7 @@
 .cargo/
 Cargo.lock
+clients/js/dist/
+clients/js/test/
 node_modules/
 package-lock.json
 pnpm-lock.yaml
