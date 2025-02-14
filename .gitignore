@@ -1,5 +1,7 @@
+.cargo/
 Cargo.lock
 node_modules/
 package-lock.json
 pnpm-lock.yaml
+program/idl.json
 target/

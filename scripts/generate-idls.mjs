@@ -5,7 +5,8 @@ import { getCargo, getProgramFolders } from './utils.mjs';
 
 const binaryInstallDir = path.join(__dirname, '..', '.cargo');
 
-getProgramFolders().forEach((folder) => {
+let programFolders = ['program'];
+programFolders.forEach((folder) => {
   const cargo = getCargo(folder);
   const isShank = Object.keys(cargo.dependencies).includes('shank');
   const programDir = path.join(__dirname, '..', folder);

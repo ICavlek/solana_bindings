@@ -6,23 +6,23 @@ import { renderVisitor as renderJavaScriptVisitor } from '@codama/renderers-js';
 import { renderVisitor as renderRustVisitor } from '@codama/renderers-rust';
 import { getAllProgramIdls } from './utils.mjs';
 
-// Instanciate Codama.
-console.log(getAllProgramIdls());
-const [idl, ...additionalIdls] = getAllProgramIdls().map((idl) =>
+// Instead of calling getAllProgramIdls() from utils.mjs, hardcoded idl value because it fails for rust code 
+// It has to contain Cargo.toml, not sure if it should be before or after
+// It is not necessary for now, JS/TS bindings are the necessary ones
+let allProgramIdls = ['/home/ivan/Development/solana_projects/solana_bindings/program/idl.json'];
+const [idl, ...additionalIdls] = allProgramIdls.map((idl) =>
   rootNodeFromAnchor(require(idl))
 );
-console.log(idl);
-console.log(additionalIdls);
 const codama = c.createFromRoot(idl, additionalIdls);
 
-// Update programs.
+// Optional: Update programs.
 codama.update(
   c.updateProgramsVisitor({
     solanaProgramMyProgram: { name: 'myProgram' },
   })
 );
 
-// Update accounts.
+// Optional: Update accounts.
 codama.update(
   c.updateAccountsVisitor({
     counter: {
@@ -38,7 +38,7 @@ codama.update(
   })
 );
 
-// Update instructions.
+// Optional: Update instructions.
 codama.update(
   c.updateInstructionsVisitor({
     create: {
@@ -59,7 +59,7 @@ codama.update(
   })
 );
 
-// Set account discriminators.
+// Optional: Set account discriminators.
 const key = (name) => ({ field: 'key', value: c.enumValueNode('Key', name) });
 codama.update(
   c.setAccountDiscriminatorFromFieldVisitor({
@@ -67,7 +67,7 @@ codama.update(
   })
 );
 
-// Render JavaScript.
+// Only necessary to render JavaScript code
 const jsClient = path.join(__dirname, '..', 'clients', 'js');
 codama.accept(
   renderJavaScriptVisitor(path.join(jsClient, 'src', 'generated'), {
@@ -75,11 +75,11 @@ codama.accept(
   })
 );
 
-// Render Rust.
-const rustClient = path.join(__dirname, '..', 'clients', 'rust');
-codama.accept(
-  renderRustVisitor(path.join(rustClient, 'src', 'generated'), {
-    formatCode: true,
-    crateFolder: rustClient,
-  })
-);
+// Leave out Rust rendering for now
+// const rustClient = path.join(__dirname, '..', 'clients', 'rust');
+// codama.accept(
+//   renderRustVisitor(path.join(rustClient, 'src', 'generated'), {
+//     formatCode: true,
+//     crateFolder: rustClient,
+//   })
+// );
