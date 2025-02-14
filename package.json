@@ -1,8 +1,11 @@
 {
   "private": true,
   "scripts": {
+    "clients:js:test": "zx ./scripts/test-js.mjs",
     "generate:idls": "zx ./scripts/generate-idls.mjs",
-    "generate:clients": "zx ./scripts/generate-clients.mjs"
+    "generate:clients": "zx ./scripts/generate-clients.mjs",
+    "validator:start": "zx ./scripts/start-validator.mjs",
+    "validator:restart": "pnpm validator:start --restart"
   },
   "devDependencies": {
     "@codama/nodes-from-anchor": "^1.0.0",

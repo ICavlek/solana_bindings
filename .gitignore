@@ -1,9 +1,11 @@
 .cargo/
 Cargo.lock
 clients/js/dist/
+clients/js/src/generated/
 clients/js/test/
 node_modules/
 package-lock.json
 pnpm-lock.yaml
 program/idl.json
 target/
+test-ledger/
