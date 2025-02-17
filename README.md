@@ -51,7 +51,7 @@ To create bindings from the created idl, run the following:
 pnpm generate:clients
 ```
 
-Finally, to run the script which starts the local solana test validator and runs the tests, use the following:
+Finally, to run the script which starts the local solana test validator and runs the already prepared tests, use the following:
 
 ```
 pnpm clients:js:test
